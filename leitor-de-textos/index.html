@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css"/>
+    <title>Leitor de textos, com voz</title>
+    <link rel="stylesheet" href="tools/bootstrap.min.css">
+    <script src="tools/jquery.min.js"></script>
+    <script src="tools/bootstrap.min.js"></script>
+    <script src="tools/icons.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header id="titulo">
+        <div>
+          <h1>Leitor de textos, com voz</h1>
+          <span>Crie suas próprias frases no idioma que quiser.</span>
+        </div>
+      </header>
+      <article>
+        <section id="idioma">
+          <label for="selectIdioma" class="inline">Selecione o idioma:</label>
+          <select class="inline" id="selectIdioma"></select>
+        </section>
+        <section id="insercao">
+          <button class="btn btn-toggle">Inserir texto</button>
+          <div class="text-box">
+            <div class="close">X</div>
+            <textarea placeholder="Insira o texto a ser lido..."></textarea>
+            <button class="btn" id="read">Ler texto</button>
+          </div>
+        </section>
+        <section>
+          <main></main>
+        </section>
+      </article>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
