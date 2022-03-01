@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./view/style.css"/>
     <title>Leitor de textos, com voz</title>
     <link rel="stylesheet" href="tools/bootstrap.min.css">
     <script src="tools/jquery.min.js"></script>
@@ -24,11 +24,42 @@
           <select class="inline" id="selectIdioma"></select>
         </section>
         <section id="insercao">
-          <button class="btn btn-toggle">Inserir texto</button>
+          <button class="btn btn-success" id="insertText">Inserir texto</button><br>
+          <br>
           <div class="text-box">
             <div class="close">X</div>
-            <textarea placeholder="Insira o texto a ser lido..."></textarea>
-            <button class="btn" id="read">Ler texto</button>
+            <label for="">Selecione o idioma:</label><br>
+            <input class="radio" type="radio" name="pt-br" id="pt-br" value="pt-br" onclick="idioma('pt-br')">
+            <label class="radio" for="pt-br">Português</label>
+            <input class="radio" type="radio" name="en-us" id="en-us" value="en-us" onclick="idioma('en-us')">
+            <label class="radio" for="en-us">Inglês</label>
+            <input class="radio" type="radio" name="es-es" id="es-es" value="es-es" onclick="idioma('es-es')">
+            <label class="radio" for="es-es">Espanhol</label>
+            <input type="hidden" name="idioma" id="idioma">
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="favcolor">Alguma cor para a nova matéria?</label>
+            <input type="color" id="favcolor" name="favcolor" value="#333333">
+            <div class="row">
+              <div class="col-sm-4">
+                <label for="materia">Matéria:</label>
+                <input type="text" class="form-control" name="materia" id="materia" placeholder="Descreva a matéria..."><br>
+              </div>
+              <div class="col-sm-4">
+                <label for="tema">Tema:</label>
+                <input type="text" class="form-control" name="tema" id="tema" placeholder="Descreva o tema..."><br>
+              </div>
+              <div class="col-sm-4">
+                <input type="button" id="addTextos" class="btn btn-primary" value="Adicionar + textos.">
+                <small class="form-text text-muted">Clique para adicionar mais textos ou frases que deseja praticar/ouvir:</small>
+                <br>
+              </div>
+              <br>
+              <div class="col-sm-12" id="divTextos">
+                <input type="hidden" id="qtdTextos" value="0">
+                <input type="text" class="form-control" id="newText0" name="newText0" placeholder="Insira o texto a ser lido..."><br>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success" id="read" onclick="inserir()">Enviar</button>
           </div>
         </section>
         <section>

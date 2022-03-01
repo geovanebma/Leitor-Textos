@@ -116,3 +116,109 @@ $(".menu").on("click", function(){
 $(".theme").on("click", function(){
     $("#ul"+$(this).attr('cont')).slideToggle(500)
 })
+
+$("#insertText").on("click", function(){
+    $(".text-box").toggle()
+})
+
+$("#addTextos").on("click", function(){
+    var qtd = parseInt($("#qtdTextos").val())
+
+    var input = `
+        <div class="" id="divText${qtd+1}">
+            <input type="text" class="form-control inputT inline" id="newText${qtd+1}" name="newText${qtd+1}" placeholder="Insira o texto a ser lido...">
+            <input type="button" class="btnT btn btn-danger btn-sm inline" value="Remover" onclick="removerInputText('${qtd+1}')"><br>
+            <br>
+        </div>
+    `
+    if($("#newText"+qtd).val() != ""){
+        $("#divTextos").append(input)
+        $("#qtdTextos").val(qtd+1)
+    }else{
+        alert("Insira primeiro o texto no campo anterior.");
+        $("#newText"+qtd).focus()
+    }
+})
+
+function removerInputText(id){
+    $("#divText"+id).remove()
+}
+
+function idioma(idioma){
+    $("#idioma").val(idioma)
+}
+
+function listar(){
+    $.ajax({
+        url:"controller.php",
+        async:false,
+        method:"post",
+        data:{"comando":"listagem"},
+        error:function(erro){
+            console.log(erro)
+        },
+        success: function(data){
+            console.log(data)
+        }
+    })
+}
+
+function listarPorId(){
+    $.ajax({
+        url:"controller.php",
+        async:false,
+        method:"post",
+        data:{"comando":"listar_por_id"},
+        error:function(erro){
+            console.log(erro)
+        },
+        success: function(data){
+            console.log(data)
+        }
+    })
+}
+
+function inserir(){
+
+    var qtdTextos = parseInt($("#qtdTextos").val())
+
+
+    var listagem = []
+    for (let index = 0; index <= qtdTextos; index++) {
+        const newText = $("#newText"+index).val()
+        const element = newText.replaceAll("'", "¢");
+
+        console.log(element)
+
+        if(element){
+            listagem.push(element)
+        }
+    }
+
+    var materia = $("#materia").val()
+    var cor = $("#favcolor").val()
+    var tema = $("#tema").val()
+    var idioma = $("#idioma").val()
+    var texto = listagem.join("§")
+    var user = "giclesb7@gmail.com"
+
+
+    if(texto){
+        console.log({"comando":"inserir", materia:materia, cor:cor, tema:tema, idioma:idioma, texto:texto, user:user})
+
+        $.ajax({
+            url:"controller.php",
+            async:false,
+            method:"post",
+            contentType: "application/x-www-form-urlencoded;charset=ISO-8859-15",
+            dataType: 'json',
+            data:{"comando":"inserir", materia:materia, cor:cor, tema:tema, idioma:idioma, texto:texto, user:user},
+            error:function(erro){
+                console.log(erro)
+            },
+            success: function(data){
+                console.log(data)
+            }
+        })
+    }
+}
